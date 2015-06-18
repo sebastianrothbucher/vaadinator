@@ -198,10 +198,8 @@ public class ${bean.className}ListViewImpl extends CustomComponent implements ${
 		@Override
 		public boolean passesFilter(Object itemId, Item item) {
 			String haystack = (""
-#foreach($property in $bean.getDisplayProfile($profileName).propertiesInProfile)
-#if($property.getDisplayPropertyProfile($profileName).showInTable)
+#foreach($property in $bean.getDisplayProfile($profileName).sortedPropertiesInProfileForTable)
 				+ getPropertyVal(item, ${bean.className}Properties.${property.propertyName.toUpperCase()}.getPropertyName()) + "---"
-#end
 #end
 			).toLowerCase();
 			return haystack.contains(needle);
@@ -233,16 +231,12 @@ public class ${bean.className}ListViewImpl extends CustomComponent implements ${
 	@Override
 	public void setOrRefreshData(List<${bean.className}> ${bean.classNamePass}List) {
 		List<String> visibleCols = new ArrayList<String>();
-#foreach($property in $bean.getDisplayProfile($profileName).propertiesInProfile)
-#if($property.getDisplayPropertyProfile($profileName).showInTable)
+#foreach($property in $bean.getDisplayProfile($profileName).sortedPropertiesInProfileForTable)
 		visibleCols.add("${property.propertyName}");
 #end
-#end
 		${bean.classNamePass}Table.setContainerDataSource(new BeanItemContainer<${bean.className}>(${bean.className}.class, ${bean.classNamePass}List), visibleCols);
-#foreach($property in $bean.getDisplayProfile($profileName).propertiesInProfile)
-#if($property.getDisplayPropertyProfile($profileName).showInTable)
+#foreach($property in $bean.getDisplayProfile($profileName).sortedPropertiesInProfileForTable)
 		${bean.classNamePass}Table.setColumnHeader("${property.propertyName}", obtainBundle().getString("entity.${bean.className}.property.${property.propertyName}"));
-#end
 #end
 	}
 

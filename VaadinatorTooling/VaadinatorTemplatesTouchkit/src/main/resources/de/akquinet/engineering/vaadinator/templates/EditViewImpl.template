@@ -104,8 +104,8 @@ public abstract class ${bean.className}EditViewImpl<O extends ${bean.className}E
 
 	public boolean checkAllFieldsValid() {
 		try {
-		#foreach($property in $bean.getDisplayProfile($profileName).propertiesInProfile)
-		#if($property.getDisplayPropertyProfile($profileName).showInDetail && $property.getDisplayPropertyProfile($profileName).readOnly==false)
+		#foreach($property in $bean.getDisplayProfile($profileName).sortedPropertiesInProfileForDetail)
+		#if($property.getDisplayPropertyProfile($profileName).readOnly==false)
 			validateField(${property.propertyName});
 		#end
 		#end
@@ -125,8 +125,7 @@ public abstract class ${bean.className}EditViewImpl<O extends ${bean.className}E
 		}
 	}
 
-#foreach($property in $bean.getDisplayProfile($profileName).propertiesInProfile)
-#if($property.getDisplayPropertyProfile($profileName).showInDetail)
+#foreach($property in $bean.getDisplayProfile($profileName).sortedPropertiesInProfileForDetail)
 	#if($property.getDisplayPropertyProfile($profileName).fieldTypeAuswahlAusListe)
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	#end	
@@ -181,7 +180,6 @@ public abstract class ${bean.className}EditViewImpl<O extends ${bean.className}E
 		#end
 	} 
 	#end
-#end
 #end
 
     @Override

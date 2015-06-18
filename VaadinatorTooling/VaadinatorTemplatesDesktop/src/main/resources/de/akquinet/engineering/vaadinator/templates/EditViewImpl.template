@@ -68,8 +68,8 @@ public abstract class ${bean.className}EditViewImpl<O extends ${bean.className}E
 		editLayout.setMargin(true);
 		editLayout.setSizeFull();
 		
-#foreach($property in $bean.getDisplayProfile($profileName).propertiesInProfile)
-#if($property.getDisplayPropertyProfile($profileName).showInDetail && $property.getDisplayPropertyProfile($profileName).readOnly==false)
+#foreach($property in $bean.getDisplayProfile($profileName).sortedPropertiesInProfileForDetail)
+#if($property.getDisplayPropertyProfile($profileName).readOnly==false)
 		editLayout.addComponent(${property.propertyName});
 #end
 #end		
@@ -99,8 +99,8 @@ public abstract class ${bean.className}EditViewImpl<O extends ${bean.className}E
 	@Override
 	public boolean checkAllFieldsValid() {
 		try {
-#foreach($property in $bean.getDisplayProfile($profileName).propertiesInProfile)
-#if($property.getDisplayPropertyProfile($profileName).showInDetail && $property.getDisplayPropertyProfile($profileName).readOnly==false)
+#foreach($property in $bean.getDisplayProfile($profileName).sortedPropertiesInProfileForDetail)
+#if($property.getDisplayPropertyProfile($profileName).readOnly==false)
 			${property.propertyName}.validate();
 #end
 #end
@@ -115,8 +115,7 @@ public abstract class ${bean.className}EditViewImpl<O extends ${bean.className}E
 		Notification.show(message, Type.ERROR_MESSAGE);
 	}
 
-#foreach($property in $bean.getDisplayProfile($profileName).propertiesInProfile)
-#if($property.getDisplayPropertyProfile($profileName).showInDetail)
+#foreach($property in $bean.getDisplayProfile($profileName).sortedPropertiesInProfileForDetail)
 	public ${property.propertyClassName} ${property.propertyGetterName}() {
 	#if($property.getDisplayPropertyProfile($profileName).fieldTypeAuswahlAusListe)
 		return (${property.propertyClassName}) ${property.propertyName}.getValue();
@@ -166,7 +165,6 @@ public abstract class ${bean.className}EditViewImpl<O extends ${bean.className}E
 		#end
 	} 
 	#end
-#end
 #end
 
 }

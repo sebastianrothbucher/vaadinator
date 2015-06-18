@@ -13,8 +13,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 *#
-#foreach($property in $bean.getDisplayProfile($profileName).propertiesInProfile)	
-#if($property.getDisplayPropertyProfile($profileName).showInDetail)
+#foreach($property in $bean.getDisplayProfile($profileName).sortedPropertiesInProfileForDetail)	
 ${property.propertyName}.setCaption(obtainBundle().getString("entity.${bean.className}.property.${property.propertyName}"));
 #if($property.getDisplayPropertyProfile($profileName).fieldTypeAuswahlAusListe)
 ${property.propertyName}.setNullSelectionAllowed(false);
@@ -32,6 +31,4 @@ ${property.propertyName}.setNullRepresentation("");
 ${property.propertyName}.setResolution(Resolution.DAY);
 #end
 ${property.propertyName}.addStyleName("styleid-${bean.className}EditViewImpl-${property.propertyName}");
-
-#end
 #end

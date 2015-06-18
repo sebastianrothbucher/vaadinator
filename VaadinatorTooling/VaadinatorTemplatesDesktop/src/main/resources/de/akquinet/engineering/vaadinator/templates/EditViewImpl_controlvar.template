@@ -13,12 +13,10 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 *#
-#foreach($property in $bean.getDisplayProfile($profileName).propertiesInProfile)	
-#if($property.getDisplayPropertyProfile($profileName).showInDetail)
-	#if($property.getDisplayPropertyProfile($profileName).fieldType.name()=="DATEPICKER")
+#foreach($property in $bean.getDisplayProfile($profileName).sortedPropertiesInProfileForDetail)	
+#if($property.getDisplayPropertyProfile($profileName).fieldType.name()=="DATEPICKER")
 protected com.vaadin.ui.DateField ${property.propertyName} = new com.vaadin.ui.DateField();
 #else
 protected ${property.getDisplayPropertyProfile($profileName).fieldTypeClassName} ${property.propertyName} = new ${property.getDisplayPropertyProfile($profileName).fieldTypeClassName}();
-#end
 #end
 #end
