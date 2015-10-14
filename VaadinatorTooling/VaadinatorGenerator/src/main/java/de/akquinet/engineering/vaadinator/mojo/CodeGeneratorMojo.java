@@ -559,8 +559,9 @@ public class CodeGeneratorMojo extends AbstractMojo {
 		writer.close();
 	}
 
-	public String toValidJavaClassName(String name) {
-		return WordUtils.capitalizeFully(name,
+	// visible for testing
+	String toValidJavaClassName(String name) {
+		return WordUtils.capitalize(name,
 				new char[] {' ','_','-' }).replaceAll(" ", "").replaceAll("-", "").replaceAll("_", "");
 	}
 	public static void main(String[] args) throws IOException, ParseException {
